@@ -32,4 +32,14 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// preparando post para Insomnia
+
+router.post('/', (req, res) => {
+  const body = req.body;
+  res.json({
+    message: 'created',
+    data: body
+  });
+})
+
 module.exports = router;
