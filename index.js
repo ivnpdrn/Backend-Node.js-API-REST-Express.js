@@ -6,12 +6,13 @@ const usersRouter = require('./users.router');
 
 
 function routerApi(app) {
-  const router = express.Router();
-  app.use('/api/v1', router);
+  const router = express.Router(); // nos traemos el Router de express
 
-  app.use('/products', productsRouter);
-  app.use('/categories', categoriesRouter);
-  app.use('/users', usersRouter);
+  app.use('/api/v1',router); // definimos un endpoint en especifico y global
+    
+  router.use('/products', productsRouter);
+  router.use('/categories', categoriesRouter);
+  router.use('/users', usersRouter);
 
   //forma valida pero no practica
   //  app.use('/api/v1/products', productsRouter);
