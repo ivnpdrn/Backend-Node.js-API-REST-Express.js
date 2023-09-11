@@ -1,20 +1,18 @@
 const express = require('express');
-const routerApi = require('./routes');
 
-const app = express();
-const port = 3000;
+const productsRouter = require('./products.router');
+const categoriesRouter = require('./categories.router');
+const usersRouter = require('./users.router');
 
-app.get('/', (req, res) => {
-  res.send('Hola mi server en express');
-});
 
-app.get('/nueva-ruta', (req, res) => {
-  res.send('Hola soy una nueva ruta o endpont');
-});
+function routerApi(app) {
+  const router = express.Router();
+  app.use('/api/v1', router);
 
-routerApi(app);
+  app.use('/products', productsRouter);
+  app.use('/categories', categoriesRouter);
+  app.use('/users', usersRouter);
+}
 
- 
-app.listen(port, () => {
-  console.log('Mi port ' + port);
-});
+module.exports = routerApi;
+
