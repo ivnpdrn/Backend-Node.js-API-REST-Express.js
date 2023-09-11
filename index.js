@@ -12,6 +12,12 @@ function routerApi(app) {
   app.use('/products', productsRouter);
   app.use('/categories', categoriesRouter);
   app.use('/users', usersRouter);
+
+  //forma valida pero no practica
+  //  app.use('/api/v1/products', productsRouter);
+  //  app.use('/api/v1/categories', categoriesRouter);
+  //  app.use('/api/v1/users', usersRouter);
+
 }
 
 module.exports = routerApi;
