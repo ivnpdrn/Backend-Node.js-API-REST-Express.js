@@ -32,13 +32,25 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// preparando post para Insomnia
+// preparando POST para Insomnia
 
 router.post('/', (req, res) => {
   const body = req.body;
   res.json({
     message: 'created',
     data: body
+  });
+})
+
+// preparando PATCH para Insomnia
+
+router.patch('/:id', (req, res) => {
+  const { id } = req.params;
+  const body = req.body;
+  res.json({
+    message: 'update',
+    data: body,
+    id
   });
 })
 
