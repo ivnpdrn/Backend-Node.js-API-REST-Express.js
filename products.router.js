@@ -25,18 +25,24 @@ router.get('/filter', (req, res) => {
 
 router.get('/:id', (req, res) => {
   const { id } = req.params;
-  res.json({
-    id,
-    name: 'Product 2',
-    price: 2000
-  });
+  if (id === '999') {              // warning: el get los va a enviar como un string '999'  
+    res.status(404).json({         // se incorpora status 404
+      message: 'not found'
+    });
+  } else {
+    res.status(200).json({
+      id,
+      name: 'Product 2',
+      price: 2000
+    });
+  }
 });
 
 // preparando POST para Insomnia
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.json({
+  res.status(201).json({            // added status
     message: 'created',
     data: body
   });
