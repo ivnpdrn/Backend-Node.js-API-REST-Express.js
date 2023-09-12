@@ -40,9 +40,10 @@ router.post('/', (req, res) => {
     message: 'created',
     data: body
   });
-})
+});
 
-// preparando PATCH para Insomnia
+// preparando PATCH para Insomnia, para el PUT se debe enviar todos los parametros
+// al PUT se debe enviar todos los parametros
 
 router.patch('/:id', (req, res) => {
   const { id } = req.params;
@@ -52,6 +53,17 @@ router.patch('/:id', (req, res) => {
     data: body,
     id
   });
-})
+});
+
+// preparando el DELETE, no va a tener un cuerpo porque solo tiene la instruccion de eliminar
+
+router.delete('/:id', (req, res) => {
+  const { id } = req.params;
+  res.json({
+    message: 'deleted',
+    id,
+  });
+});
+
 
 module.exports = router;
