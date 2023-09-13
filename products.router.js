@@ -24,11 +24,9 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   const body = req.body;
-  res.status(201).json({            // added status
-    message: 'created',
-    data: body
-  });
-});
+  const newProduct = service.create(body);
+  res.status(201).json(newProduct);
+ });
 
 // preparando PATCH para Insomnia, para el PUT se debe enviar todos los parametros
 // al PUT se debe enviar todos los parametros
