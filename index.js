@@ -1,22 +1,25 @@
 const express = require('express');
-const routerApi = require('./routes');
 
-const app = express();
-const port = 3000;
+const productsRouter = require('./products.router');
+const categoriesRouter = require('./categories.router');
+const usersRouter = require('./users.router');
 
-app.use(express.json());  // agregado para poder recibir informacion tipo json a traves del post, en este caso de Insomnia
 
-app.get('/', (req, res) => {
-  res.send('Hola mi server en express');
-});
+function routerApi(app) {
+  const router = express.Router(); // nos traemos el Router de express
 
-app.get('/nueva-ruta', (req, res) => {
-  res.send('Hola soy una nueva ruta o endpont');
-});
+  app.use('/api/v1',router); // definimos un endpoint en especifico y global
+    
+  router.use('/products', productsRouter);
+  router.use('/categories', categoriesRouter);
+  router.use('/users', usersRouter);
 
-routerApi(app);
+  //forma valida pero no practica
+  //  app.use('/api/v1/products', productsRouter);
+  //  app.use('/api/v1/categories', categoriesRouter);
+  //  app.use('/api/v1/users', usersRouter);
 
- 
-app.listen(port, () => {
-  console.log('Mi port ' + port);
-});
+}
+
+module.exports = routerApi;
+
