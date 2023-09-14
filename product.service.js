@@ -28,9 +28,14 @@ class ProductsService {
     return newProduct;
   }
 
-  async find() {
-    return this.products;
-  }
+  find() {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(this.products);
+      }, 5000);
+    })
+    }
+  
 
   async findOne(id) {
     return this.products.find(item => item.id === id);
