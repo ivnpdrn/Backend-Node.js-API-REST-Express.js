@@ -31,11 +31,18 @@ router.post('/', async (req, res) => {
 // preparando PATCH para Insomnia, para el PUT se debe enviar todos los parametros
 // al PUT se debe enviar todos los parametros
 
-router.patch('/:id', async (req, res) => {
-  const { id } = req.params;
-  const body = req.body;
-  const product = await service.update(id, body);
-  res.json(product);
+router.patch('/:id', async (req, res) => {  // because is async can use Try/Catch
+  try {
+    const { id } = req.params;
+    const body = req.body;
+    const product = await service.update(id, body);
+    res.json(product);
+  } catch (error) {
+    res.status(404).json({
+      message: error.message
+    });
+  }
+    
  });
 
 // preparando el DELETE, no va a tener un cuerpo porque solo tiene la instruccion de eliminar
