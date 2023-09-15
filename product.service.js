@@ -38,6 +38,8 @@ class ProductsService {
   
 
   async findOne(id) {
+    const name = this.getTotal();   // esta linea es intencional para probar los MIDDLEWALES,
+                                    // considerando que getTotal() no existe.
     return this.products.find(item => item.id === id);
 
   }
