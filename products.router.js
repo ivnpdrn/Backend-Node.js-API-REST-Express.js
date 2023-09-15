@@ -14,10 +14,16 @@ router.get('/filter', (req, res) => {
   res.send('Yo soy un filter');
 });
 
-router.get('/:id', async (req, res) => {
-  const { id } = req.params;
-  const product = await service.findOne(id);
-  res.json(product);
+router.get('/:id', async (req, res, next) => {    // se agrega el NEXT para incorporar el MIDDLEWARE
+                                                  // se agrega el TRY/CATCH para incorporar el MIDDLEWARE
+  try {
+    const { id } = req.params;
+    const product = await service.findOne(id);
+    res.json(product);
+  } catch (error) {                               // detecte el ERROR entonces ejecuta los MIDDLEWARES tipo ERROR
+                                                  // que se tiene
+    next(error);
+  }
 });
 
 // preparando POST para Insomnia
