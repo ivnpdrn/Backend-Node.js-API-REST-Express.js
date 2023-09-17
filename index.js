@@ -1,12 +1,13 @@
 const express = require('express');
 const routerApi = require('./routes');
 
-const { logErrors, errorHandler } = require('./middlewares/error.handler');
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
 const app = express();
 const port = 3000;
 
-app.use(express.json());  // agregado para poder recibir informacion tipo json a traves del post, en este caso de Insomnia
+app.use(express.json());  // agregado para poder recibir informacion tipo json a traves del post,
+                          // en este caso de Insomnia
 
 app.get('/', (req, res) => {
   res.send('Hola mi server en express');
@@ -22,6 +23,7 @@ app.use(logErrors);            // en el orden que los coloquemos en estas lineas
                                // en este mismo orden se ejecutara. Comportamiento de forma secuencial.
                                // WARNING: el primer MIDDLEWARE en la secuencia debe tener un NEXT para que pase
                                // al siguiente
+app.use(boomErrorHandler);
 app.use(errorHandler);
 
  
