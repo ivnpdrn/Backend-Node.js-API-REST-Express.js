@@ -48,6 +48,8 @@ class ProductsService {
     if (product.isBlock) {
       throw boom.conflict('product is block');
     }
+
+
     return product;
   }
 
