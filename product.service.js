@@ -1,4 +1,6 @@
 const { faker } = require('@faker-js/faker');
+const boom = require('@hapi/boom');
+
 
 class ProductsService {
 
@@ -15,6 +17,7 @@ class ProductsService {
         name: faker.commerce.productName(),
         price: parseInt(faker.commerce.price(), 10),
         image: faker.image.imageUrl(),
+        isBlock: faker.datatype.boolean(),                // se quiere que el cliente no vea 
       });
     }
   }
@@ -38,16 +41,20 @@ class ProductsService {
   
 
   async findOne(id) {
-    const name = this.getTotal();   // esta linea es intencional para probar los MIDDLEWALES,
-                                    // considerando que getTotal() no existe.
-    return this.products.find(item => item.id === id);
-
+    const product = this.products.find(item => item.id === id);
+    if (!product) {
+      throw boom.notFound('product not found'); 
+    }
+    if (product.isBlock) {
+      throw boom.conflict('product is block');
+    }
+    return product;
   }
 
   async update(id, changes) {
     const index = this.products.findIndex(item => item.id === id);
-    if (index === -1) {
-      throw new Error('product not found');     // si no encuentra el elemento devuelve un -1 
+    if (index === -1) {                                             // si no encuentra el elemento devuelve un -1
+      throw boom.notFound('product not found');                     // boom in action
     }
     const product = this.products[index];
     this.products[index] = {
@@ -60,7 +67,7 @@ class ProductsService {
   async delete(id) {
     const index = this.products.findIndex(item => item.id === id);
     if (index === -1) {
-      throw new Error('product not found');
+      throw boom.notFound('product not found');                   // boom in action
     }
     this.products.splice(index, 1);
     return { id };
